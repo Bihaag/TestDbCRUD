@@ -1,0 +1,29 @@
+﻿@model TestDbCRUD.Models.AddOrderViewModel
+@{
+}
+<h1>Add New Order</h1>
+<form method="post" action="Add" class="mt-4">
+  <div class="mb-3">
+    <label for="" class="form-label">Contents</label>
+    <input type="text" class="form-control" asp-for="Contents">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Date of Order</label>
+    <input type="date" class="form-control" asp-for="OrderDate">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Weight(Kg)</label>
+    <input type="number" class="form-control" asp-for="Weight">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Contents Dimentions</label>
+    <input type="text" class="form-control" asp-for="Dimentions">
+  </div>
+  <div class="mb-3">
+    <label for="" class="form-label">Pickup Location</label>
+    <input type="text" class="form-control" asp-for="Location">
+  </div>
+  
+  
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
