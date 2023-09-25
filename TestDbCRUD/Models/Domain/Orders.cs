@@ -1,13 +1,16 @@
-﻿namespace TestDbCRUD.Models.Domain
+﻿using System.ComponentModel.DataAnnotations;
+namespace TestDbCRUD.Models.Domain
 {
     public class Orders
     {
         public Guid Id { get; set; }
+        public string CompanyName { get; set; }
         public string Contents { get; set; }
+        public int Quantity { get; set; }
+        public string PickupLocation { get; set; }
+        public string Destination { get; set; }
         public DateTime OrderDate { get; set; }
-        public string Weight { get; set; }
-        public string Dimentions { get; set; }
-        public string Location { get; set; }
+        public DateTime ETA { get; set; }
 
 
     }

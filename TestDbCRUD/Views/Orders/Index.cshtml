@@ -1,5 +1,38 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model List<TestDbCRUD.Models.Domain.Orders>
+
 @{
 }
+<h1>Orders</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Company Name</th>
+            <th>Contents</th>
+            <th>Quantity</th>
+            <th>Pickup Location</th>
+            <th>Destination</th>
+            <th>Order Date</th>
+            <th>ETA</th>
+            <th> </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.Id</td>
+                <td>@order.CompanyName</td>
+                <td>@order.Contents</td>
+                <td>@order.Quantity</td>
+                <td>@order.PickupLocation</td>
+                <td>@order.Destination</td>
+                <td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
+                <td>@order.ETA</td>
+                <td><a href="Orders/View/@order.Id">View</a></td>
+            </tr>
+
+        }
+    </tbody>
+</table>

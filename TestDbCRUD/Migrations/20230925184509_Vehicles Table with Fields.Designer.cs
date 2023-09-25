@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDbCRUD.Data;
 
@@ -11,9 +12,11 @@ using TestDbCRUD.Data;
 namespace TestDbCRUD.Migrations
 {
     [DbContext(typeof(MoveItDbContext))]
-    partial class MoveItDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230925184509_Vehicles Table with Fields")]
+    partial class VehiclesTablewithFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,6 +24,21 @@ namespace TestDbCRUD.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("TestDbCRUD.Models.Domain.Fleet", b =>
+                {
+                    b.Property<Guid>("FleetId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Driver")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("FleetId");
+
+                    b.ToTable("Fleet");
+                });
 
             modelBuilder.Entity("TestDbCRUD.Models.Domain.Orders", b =>
                 {
@@ -66,11 +84,15 @@ namespace TestDbCRUD.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("VehicleId"));
 
-                    b.Property<string>("Destination")
+                    b.Property<string>("Availability")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Driver")
+                    b.Property<string>("Condition")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Destination")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -78,11 +100,10 @@ namespace TestDbCRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("VehicleType")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("VehicleQuantity")
+                        .HasColumnType("int");
 
-                    b.Property<string>("status")
+                    b.Property<string>("VehicleType")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 

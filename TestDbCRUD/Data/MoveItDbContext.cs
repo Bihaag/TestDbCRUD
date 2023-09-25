@@ -11,5 +11,7 @@ namespace TestDbCRUD.Data
         }
 
         public DbSet<Orders> Orders { get; set; }
+        public DbSet<Vehicles> Vehicle { get; set; }
+
     }
 }
