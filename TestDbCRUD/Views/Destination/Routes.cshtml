@@ -2,7 +2,7 @@
 
 @{
 }
-<h1>Order List</h1>
+<h1>Order Routes</h1>
 
 <table class="table">
     <thead>
@@ -14,7 +14,6 @@
             <th>Pickup Location</th>
             <th>Destination</th>
             <th>Order Date</th>
-            <th>ETA</th>
             <th> </th>
         </tr>
     </thead>
@@ -29,10 +28,10 @@
                 <td>@order.PickupLocation</td>
                 <td>@order.Destination</td>
                 <td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
-                <td>@order.ETA</td>
-                <td><a href="Orders/View/@order.Id">View</a></td>
-            </tr>
+                <td><a href="Maps/Destination">View Route</a></td>
 
+            </tr>
+            
         }
     </tbody>
 </table>
