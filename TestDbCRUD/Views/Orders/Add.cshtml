@@ -1,38 +1,69 @@
 ﻿@model TestDbCRUD.Models.AddOrderViewModel
 @{
 }
-<h1>Add New Order</h1>
-<form method="post" action="Add" class="mt-4">
+<!DOCTYPE html>
+<html>
+<head>
+    <link href="~/css/AutoFill.css" rel="stylesheet">
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script type="module" src="~/js/AutoFill.js"></script>
+</head>
+<body>
 
-    <div class="mb-3">
-        <label for="" class="form-label">Company Name</label>
-        <input type="text" class="form-control" asp-for="CompanyName">
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Contents</label>
-        <input type="text" class="form-control" asp-for="Contents">
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Quantity</label>
-        <input type="number" class="form-control" asp-for="Quantity">
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Pickup Location</label>
-        <input type="text" class="form-control" asp-for="PickupLocation">
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">Destination</label>
-        <input type="text" class="form-control" asp-for="Destination">
-    </div>
-     <div class="mb-3">
-        <label for="" class="form-label">Date of Order</label>
-        <input type="date" class="form-control" asp-for="OrderDate">
-    </div>
-    <div class="mb-3">
-        <label for="" class="form-label">ETA</label>
-        <input type="date" class="form-control" asp-for="ETA">
+    <h1>Add New Order</h1>
+    <form method="post" action="Add" class="mt-4">
+
+        <div class="mb-3">
+            <label for="" class="form-label">Company Name</label>
+            <input type="text" class="form-control" asp-for="CompanyName">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Contents</label>
+            <input type="text" class="form-control" asp-for="Contents">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Quantity</label>
+            <input type="number" class="form-control" asp-for="Quantity">
+        </div>
+        <div class="mb-3">
+            <label for="pac-input" class="form-label">Pickup Location</label>
+            <input type="text" class="form-control" id="pac-input" asp-for="PickupLocation">
+        </div>
+        <div class="mb-3">
+            <label for="dest-input" class="form-label">Destination</label>
+            <input type="text" class="form-control" id="dest-input" asp-for="Destination">
+        </div>
+
+        <div class="mb-3">
+            <label for="" class="form-label">Date of Order</label>
+            <input type="date" class="form-control" asp-for="OrderDate">
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">ETA</label>
+            <input type="date" class="form-control" asp-for="ETA">
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+    <div id="map"></div>
+    <div id="infowindow-content">
+        <span id="place-name" class="title"></span><br />
+        <strong>Place ID:</strong> <span id="place-id"></span><br />
+        <span id="place-address"></span>
     </div>
 
+    <!--
+      The `defer` attribute causes the callback to execute after the full HTML
+      document has been parsed. For non-blocking uses, avoiding race conditions,
+      and consistent behavior across browsers, consider loading using Promises.
+      See https://developers.google.com/maps/documentation/javascript/load-maps-js-api
+      for more information.
+      -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w&callback=initMap&libraries=places&v=weekly"
+            defer></script>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    
+
+</body>
+</html>
