@@ -1,4 +1,5 @@
-﻿namespace TestDbCRUD.Models
+﻿using System.ComponentModel.DataAnnotations;
+namespace TestDbCRUD.Models
 {
     public class AddOrderViewModel
     {

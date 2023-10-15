@@ -4,7 +4,8 @@ namespace TestDbCRUD.Models.Domain
     public class Orders
     {
         public Guid Id { get; set; }
-        public string CompanyName { get; set; }
+        
+        public string CompanyName { get; set; } 
         public string Contents { get; set; }
         public int Quantity { get; set; }
         public string PickupLocation { get; set; }
