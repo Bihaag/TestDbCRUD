@@ -38,6 +38,7 @@ function initMap() {
     autocompletePac.addListener("place_changed", () => {
         infowindow.close();
         const place = autocompletePac.getPlace();
+        var placepickIdInput;
         if (!place.geometry || !place.geometry.location) {
             return;
         }
@@ -54,7 +55,37 @@ function initMap() {
         marker.setVisible(true);
         infowindowContent.children.namedItem("place-name").textContent = place.name;
         infowindowContent.children.namedItem("place-id").textContent = place.place_id;
+        console.log("Place ID:", place.place_id);
+        placepickIdInput = document.getElementById("pickup-place-id");
+        placepickIdInput.value = place.place_id;
         infowindowContent.children.namedItem("place-address").textContent = place.formatted_address;
+        infowindow.open(map, marker);
+    });
+
+    autocompleteDest.addListener("place_changed", () => {
+        infowindow.close();
+        const placeDest = autocompleteDest.getPlace();
+        var placeIdInput;
+        if (!placeDest.geometry || !placeDest.geometry.location) {
+            return;
+        }
+        if (placeDest.geometry.viewport) {
+            map.fitBounds(placeDest.geometry.viewport);
+        } else {
+            map.setCenter(placeDest.geometry.location);
+            map.setZoom(17);
+        }
+        marker.setPlace({
+            placeId: placeDest.place_id,
+            location: placeDest.geometry.location,
+        });
+        marker.setVisible(true);
+        infowindowContent.children.namedItem("place-name").textContent = placeDest.name;
+        infowindowContent.children.namedItem("place-id").textContent = placeDest.place_id;
+        console.log("Place ID for dest-input:", placeDest.place_id);
+        placeIdInput = document.getElementById("dest-place-id");
+        placeIdInput.value = placeDest.place_id;
+        infowindowContent.children.namedItem("place-address").textContent = placeDest.formatted_address;
         infowindow.open(map, marker);
     });
 }

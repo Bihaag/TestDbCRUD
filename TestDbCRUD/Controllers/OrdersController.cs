@@ -41,6 +41,8 @@ namespace TestDbCRUD.Controllers
                 Destination = addOrderRequest.Destination,
                 OrderDate = addOrderRequest.OrderDate,
                 ETA = addOrderRequest.ETA,
+                PickupLocationID = addOrderRequest.PickupLocationID,
+                DestinationID = addOrderRequest.DestinationID,
             };
 
             await moveItDbContext.Orders.AddAsync(order);

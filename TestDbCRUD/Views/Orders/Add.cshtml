@@ -44,6 +44,9 @@
             <label for="" class="form-label">ETA</label>
             <input type="date" class="form-control" asp-for="ETA" required>
         </div>
+        <input type="text" id="pickup-place-id" asp-for="PickupLocationID">
+        <input type="text" id="dest-place-id" asp-for="DestinationID">
+      
 
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
@@ -64,8 +67,6 @@
       -->
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w&callback=initMap&libraries=places&v=weekly"
             defer></script>
-
-
 
 </body>
 </html>

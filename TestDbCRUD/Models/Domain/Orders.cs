@@ -12,7 +12,7 @@ namespace TestDbCRUD.Models.Domain
         public string Destination { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime ETA { get; set; }
-
-
+        public string? PickupLocationID { get; set; }
+        public string? DestinationID { get; set; }
     }
 }
