@@ -27,8 +27,11 @@
                 <td>@order.Quantity</td>
                 <td>@order.PickupLocation</td>
                 <td>@order.Destination</td>
+               @*  <td>@order.DestinationID</td>
+                <td>@order.PickupLocationID</td> *@
                 <td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
-                <td><a href="Maps/Destination">View Route</a></td>
+                @* <td><a href="Maps/Destination">View Route</a></td> *@
+                <td><a href="Maps/Destination?pickupLocation=@order.PickupLocationID&destination=@order.DestinationID">View Route</a></td>
 
             </tr>
             

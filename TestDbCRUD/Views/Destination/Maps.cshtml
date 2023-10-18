@@ -212,7 +212,7 @@
         </div>
     </div>
     <script src="~/js/Commute.js"></script>
-    <script>
+    @*  <script>
         const CONFIGURATION = {
             "defaultTravelMode": "DRIVING",
             "distanceMeasurementType": "IMPERIAL",
@@ -233,7 +233,62 @@
         function initMap() {
             new Commutes(CONFIGURATION);
         }
-    </script>
+    </script>  *@
+     <script>
+        // Function to parse query parameters from the URL
+        function getQueryParameters() {
+            var queryString = window.location.search;
+            var queryParams = {};
+            if (queryString) {
+                queryString = queryString.substring(1); // Remove the leading "?" character
+                var parameterPairs = queryString.split('&');
+                for (var i = 0; i < parameterPairs.length; i++) {
+                    var pair = parameterPairs[i].split('=');
+                    if (pair.length === 2) {
+                        queryParams[pair[0]] = pair[1];
+                    }
+                }
+            }
+            return queryParams;
+        }
+
+        // Retrieve the pickupLocation and destination query parameters
+        var queryParams = getQueryParameters();
+        var pickupLocation = queryParams.pickupLocation;
+        var destination = queryParams.destination;
+
+        // console.log('Extracted Pickup Location:', pickupLocation);
+        // console.log('Extracted Destination:', destination);
+        console.log('Requesting place details for pickupLocation:', pickupLocation);
+        console.log('Requesting place details for destination:', destination);
+
+
+        // Now you can use pickupLocation and destination as needed
+        console.log('Pickup Location:', pickupLocation);
+        console.log('Destination:', destination);
+        const CONFIGURATION = {
+            "defaultTravelMode": "DRIVING",
+            "distanceMeasurementType": "IMPERIAL",
+            "initialDestinations": [
+                {
+                    "placeId": pickupLocation,
+                    "travelMode": "DRIVING"
+                },
+                {
+                    "placeId": destination,
+                    "travelMode": "DRIVING"
+                }
+            ],
+            "mapOptions": { "center": { "lat": -29.853440655134943, "lng": 31.006113099999993}, "fullscreenControl": true, "mapTypeControl": false, "streetViewControl": false, "zoom": 14, "zoomControl": true, "maxZoom": 20, "mapId": "" },
+            "mapsApiKey": "AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w"
+        };
+
+        function initMap() {
+            new Commutes(CONFIGURATION);
+        }
+    </script> 
+
+
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_commutes_v2_c" async defer></script>
 </body>
 </html>
