@@ -213,28 +213,28 @@
     </div>
     <script src="~/js/Commute.js"></script>
     @*  <script>
-        const CONFIGURATION = {
-            "defaultTravelMode": "DRIVING",
-            "distanceMeasurementType": "IMPERIAL",
-            "initialDestinations": [
-                {
-                    "placeId": "ChIJPcr187JrkFQRLApO8QKP8ZM",
-                    "travelMode": "PUBLIC_TRANSIT"
-                },
-                {
-                    "placeId": "ChIJoZv0y8hqkFQRQcB9L4Wi1EM",
-                    "travelMode": "WALKING"
-                }
-            ],
-            "mapOptions": { "center": { "lat": 47.6115, "lng": -122.3222 }, "fullscreenControl": true, "mapTypeControl": false, "streetViewControl": false, "zoom": 14, "zoomControl": true, "maxZoom": 20, "mapId": "" },
-            "mapsApiKey": "AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w"
-        };
+    const CONFIGURATION = {
+    "defaultTravelMode": "DRIVING",
+    "distanceMeasurementType": "IMPERIAL",
+    "initialDestinations": [
+    {
+    "placeId": "ChIJPcr187JrkFQRLApO8QKP8ZM",
+    "travelMode": "PUBLIC_TRANSIT"
+    },
+    {
+    "placeId": "ChIJoZv0y8hqkFQRQcB9L4Wi1EM",
+    "travelMode": "WALKING"
+    }
+    ],
+    "mapOptions": { "center": { "lat": 47.6115, "lng": -122.3222 }, "fullscreenControl": true, "mapTypeControl": false, "streetViewControl": false, "zoom": 14, "zoomControl": true, "maxZoom": 20, "mapId": "" },
+    "mapsApiKey": "AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w"
+    };
 
-        function initMap() {
-            new Commutes(CONFIGURATION);
-        }
+    function initMap() {
+    new Commutes(CONFIGURATION);
+    }
     </script>  *@
-     <script>
+    <script>
         // Function to parse query parameters from the URL
         function getQueryParameters() {
             var queryString = window.location.search;
@@ -257,15 +257,19 @@
         var pickupLocation = queryParams.pickupLocation;
         var destination = queryParams.destination;
 
+        // Create the "origin" string with the pickup location coordinates
+
+        // Usage
+
         // console.log('Extracted Pickup Location:', pickupLocation);
         // console.log('Extracted Destination:', destination);
         console.log('Requesting place details for pickupLocation:', pickupLocation);
         console.log('Requesting place details for destination:', destination);
 
-
         // Now you can use pickupLocation and destination as needed
         console.log('Pickup Location:', pickupLocation);
         console.log('Destination:', destination);
+
         const CONFIGURATION = {
             "defaultTravelMode": "DRIVING",
             "distanceMeasurementType": "IMPERIAL",
@@ -279,16 +283,121 @@
                     "travelMode": "DRIVING"
                 }
             ],
-            "mapOptions": { "center": { "lat": -29.853440655134943, "lng": 31.006113099999993}, "fullscreenControl": true, "mapTypeControl": false, "streetViewControl": false, "zoom": 14, "zoomControl": true, "maxZoom": 20, "mapId": "" },
+            "mapOptions": {
+                "center": { "lat": -29.853440655134943, "lng": 31.006113099999993 },
+                "fullscreenControl": true,
+                "mapTypeControl": false,
+                "streetViewControl": false,
+                "zoom": 14,
+                "zoomControl": true,
+                "maxZoom": 20,
+                "mapId": ""
+            },
             "mapsApiKey": "AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w"
         };
 
         function initMap() {
             new Commutes(CONFIGURATION);
+
+            function getLatLngFromPlaceId(placeId, callback) {
+                var geocoder = new google.maps.Geocoder();
+                geocoder.geocode({ placeId: placeId }, function(results, status) {
+                    if (status === google.maps.GeocoderStatus.OK) {
+                        if (results[0] && results[0].geometry && results[0].geometry.location) {
+                            callback(results[0].geometry.location);
+                        } else {
+                            console.error('No location found for place ID: ' + placeId);
+                            callback(null);
+                        }
+                    } else {
+                        console.error('Geocoding failed with status: ' + status);
+                        callback(null);
+                    }
+                });
+            }
+
+            // Usage
+            getLatLngFromPlaceId(pickupLocation, function(pickupLocationCoords) {
+                if (pickupLocationCoords) {
+                    console.log('Pickup Location Latitude:', pickupLocationCoords.lat());
+                    console.log('Pickup Location Longitude:', pickupLocationCoords.lng());
+                }
+            });
+
+            // Add a click event listener to the "changeCenter" link
+            document.getElementById('changeCenter').addEventListener('click', function(event) {
+                event.preventDefault(); // Prevent the link from actually navigating to a different page
+
+                // Update the map's center to the pickup location
+                getLatLngFromPlaceId(pickupLocation, function(pickupLocationCoords) {
+                    if (pickupLocationCoords) {
+                        // Update the center of the map to the pickup location's coordinates
+                        CONFIGURATION.mapOptions.center.lat = pickupLocationCoords.lat();
+                        CONFIGURATION.mapOptions.center.lng = pickupLocationCoords.lng();
+
+                        // Create a new Commutes instance with the updated map options
+                        new Commutes(CONFIGURATION);
+
+                        console.log('Map center updated to Pickup Location Latitude:', pickupLocationCoords.lat());
+                        console.log('Map center updated to Pickup Location Longitude:', pickupLocationCoords.lng());
+
+                        // Show the hidden tags when "VIEW A - B" is clicked
+                        document.getElementById('hiddenTag1').style.display = 'inline'; // or 'block' depending on your layout
+                        document.getElementById('hiddenTag2').style.display = 'inline'; // or 'block'
+
+
+
+                    }
+                });
+            });
         }
-    </script> 
+    </script>
 
 
+    <a class="a" id="changeCenter" href="#" target="_blank">VIEW A - B</a>
+    <a class="b" id="hiddenTag1" href="#" target="_blank">A</a>
+    <a class="b" id="hiddenTag2" href="#" target="_blank">CLICK DIRECTIONS ABOVE</a>
+    <style>
+        .a {
+            background-color: greenyellow;
+            color: black;
+            padding: 0.5em 1.7em;
+            text-decoration: none;
+            margin-left: 10px;
+            margin-top: 10px;
+            position: absolute;
+            font-weight: bold;
+            border-radius: 20px;
+        }
+
+            .a:hover {
+                background-color: white;
+            }
+
+            .a:active {
+                background-color: black;
+            }
+
+            .a:visited {
+                background-color: #ccc;
+            }
+
+        .b {
+            background-color: greenyellow;
+            color: black;
+            padding: 0.5em 1.7em;
+            text-decoration: none;
+            margin-left: 835px;
+            margin-top: 10px;
+            position: absolute;
+            font-weight: bold;
+            display: none;
+            border-radius: 20px;
+        }
+    </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_commutes_v2_c" async defer></script>
+
+    
+
 </body>
 </html>
