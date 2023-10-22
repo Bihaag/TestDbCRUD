@@ -19,6 +19,7 @@ namespace TestDbCRUD.Controllers
         [HttpGet]
         public async Task<IActionResult> Routes()
         {
+            
             var orders = await moveItDbContext.Orders.ToListAsync();
             return View(orders);
         }
@@ -26,10 +27,12 @@ namespace TestDbCRUD.Controllers
         [HttpGet]
         public async Task<IActionResult> Maps()
         {
+            
             return View();
         }
 
-   
+
+
 
     }
 }

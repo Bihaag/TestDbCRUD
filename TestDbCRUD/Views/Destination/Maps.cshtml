@@ -5,6 +5,11 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="~/css/MapStyleSheet.css" rel="stylesheet">
+    <style>
+        .commutes {
+            height: 500px;
+        }
+    </style>
 </head>
 <body>
     <!-- Defined commutes SVGs -->
@@ -344,7 +349,7 @@
                         // Show the hidden tags when "VIEW A - B" is clicked
                         document.getElementById('hiddenTag1').style.display = 'inline'; // or 'block' depending on your layout
                         document.getElementById('hiddenTag2').style.display = 'inline'; // or 'block'
-
+                        document.getElementById('hiddenImage').style.display = 'inline';
 
 
                     }
@@ -356,6 +361,7 @@
 
     <a class="a" id="changeCenter" href="#" target="_blank">VIEW A - B</a>
     <a class="b" id="hiddenTag1" href="#" target="_blank">A</a>
+    <img class="c" id="hiddenImage" src="~/images/icons8-arrow-up-48.png" />
     <a class="b" id="hiddenTag2" href="#" target="_blank">CLICK DIRECTIONS ABOVE</a>
     <style>
         .a {
@@ -388,16 +394,25 @@
             padding: 0.5em 1.7em;
             text-decoration: none;
             margin-left: 835px;
-            margin-top: 10px;
+            margin-top: 60px;
             position: absolute;
             font-weight: bold;
+            display: none;
+            border-radius: 20px;
+        }
+
+        .c {
+            padding: 0.5em 1.7em;
+            margin-left: 910px;
+            margin-top: -5px;
+            position: absolute;
             display: none;
             border-radius: 20px;
         }
     </style>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRh0MvECIb_kKZyEdI4KaTFDipuHno19w&callback=initMap&libraries=places,geometry&solution_channel=GMP_QB_commutes_v2_c" async defer></script>
 
-    
+
 
 </body>
 </html>

@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDbCRUD.Data;
 
@@ -11,9 +12,11 @@ using TestDbCRUD.Data;
 namespace TestDbCRUD.Migrations
 {
     [DbContext(typeof(MoveItDbContext))]
-    partial class MoveItDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022134831_Edited user fields")]
+    partial class Editeduserfields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,9 +62,6 @@ namespace TestDbCRUD.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<bool>("UserStatus")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
@@ -69,13 +69,14 @@ namespace TestDbCRUD.Migrations
 
             modelBuilder.Entity("TestDbCRUD.Models.Domain.RoleType", b =>
                 {
-                    b.Property<int?>("RoleID")
+                    b.Property<int>("RoleID")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("RoleID"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RoleID"));
 
                     b.Property<string>("RoleName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("RoleID");
@@ -98,7 +99,7 @@ namespace TestDbCRUD.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleName")
+                    b.Property<int>("RoleID")
                         .HasColumnType("int");
 
                     b.Property<string>("UserName")
@@ -107,7 +108,7 @@ namespace TestDbCRUD.Migrations
 
                     b.HasKey("UserID");
 
-                    b.HasIndex("RoleName");
+                    b.HasIndex("RoleID");
 
                     b.ToTable("UserAccount");
                 });
@@ -149,7 +150,9 @@ namespace TestDbCRUD.Migrations
                 {
                     b.HasOne("TestDbCRUD.Models.Domain.RoleType", "Role")
                         .WithMany()
-                        .HasForeignKey("RoleName");
+                        .HasForeignKey("RoleID")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Role");
                 });

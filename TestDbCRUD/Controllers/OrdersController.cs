@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using TestDbCRUD.Data;
 using TestDbCRUD.Models;
 using TestDbCRUD.Models.Domain;
+using Microsoft.AspNetCore.Authorization;
 
 namespace TestDbCRUD.Controllers
 {
@@ -69,7 +70,7 @@ namespace TestDbCRUD.Controllers
                     ETA = order.ETA,
                 };
 
-                return await Task.Run(() => View("View",viewModel));
+                return await Task.Run(() => View("View", viewModel));
 
             }
 
@@ -114,6 +115,38 @@ namespace TestDbCRUD.Controllers
             }
 
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CancelOrder(UpdateOrderViewModel model)
+        {
+            try
+            {
+                var order = await moveItDbContext.Orders.FindAsync(model.Id);
+
+                if (order != null)
+                {
+                    moveItDbContext.Orders.Remove(order);
+                    await moveItDbContext.SaveChangesAsync();
+
+                    return RedirectToAction("OrderCancelled");
+                }
+                else
+                {
+                    // Handle the case where the order with the given Id doesn't exist.
+                    return NotFound(); // Or return an error view or message.
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle any exceptions here, log them, or return an error view.
+                return View("Error");
+            }
+        }
+
+        public IActionResult OrderCancelled()
+        {
+            return View();
         }
 
     }

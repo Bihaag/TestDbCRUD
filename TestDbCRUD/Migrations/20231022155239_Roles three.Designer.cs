@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDbCRUD.Data;
 
@@ -11,9 +12,11 @@ using TestDbCRUD.Data;
 namespace TestDbCRUD.Migrations
 {
     [DbContext(typeof(MoveItDbContext))]
-    partial class MoveItDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231022155239_Roles three")]
+    partial class Rolesthree
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -58,9 +61,6 @@ namespace TestDbCRUD.Migrations
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
-
-                    b.Property<bool>("UserStatus")
-                        .HasColumnType("bit");
 
                     b.HasKey("Id");
 

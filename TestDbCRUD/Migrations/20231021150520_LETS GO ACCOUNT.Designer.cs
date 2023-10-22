@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using TestDbCRUD.Data;
 
@@ -11,9 +12,11 @@ using TestDbCRUD.Data;
 namespace TestDbCRUD.Migrations
 {
     [DbContext(typeof(MoveItDbContext))]
-    partial class MoveItDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231021150520_LETS GO ACCOUNT")]
+    partial class LETSGOACCOUNT
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -59,28 +62,9 @@ namespace TestDbCRUD.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<bool>("UserStatus")
-                        .HasColumnType("bit");
-
                     b.HasKey("Id");
 
                     b.ToTable("Orders");
-                });
-
-            modelBuilder.Entity("TestDbCRUD.Models.Domain.RoleType", b =>
-                {
-                    b.Property<int?>("RoleID")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int?>("RoleID"));
-
-                    b.Property<string>("RoleName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("RoleID");
-
-                    b.ToTable("RoleType");
                 });
 
             modelBuilder.Entity("TestDbCRUD.Models.Domain.UserAccount", b =>
@@ -94,20 +78,38 @@ namespace TestDbCRUD.Migrations
                     b.Property<string>("ConfirmPassword")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("RoleName")
+                    b.Property<int>("PostalCode")
                         .HasColumnType("int");
+
+                    b.Property<string>("StreetAddress")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Suburb")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Surname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("UserID");
-
-                    b.HasIndex("RoleName");
 
                     b.ToTable("UserAccount");
                 });
@@ -143,15 +145,6 @@ namespace TestDbCRUD.Migrations
                     b.HasKey("VehicleId");
 
                     b.ToTable("Vehicle");
-                });
-
-            modelBuilder.Entity("TestDbCRUD.Models.Domain.UserAccount", b =>
-                {
-                    b.HasOne("TestDbCRUD.Models.Domain.RoleType", "Role")
-                        .WithMany()
-                        .HasForeignKey("RoleName");
-
-                    b.Navigation("Role");
                 });
 #pragma warning restore 612, 618
         }

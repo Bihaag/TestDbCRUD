@@ -18,6 +18,12 @@ namespace TestDbCRUD.Controllers
             return View();
         }
 
+
+        public IActionResult IndexDriver()
+        {
+            return View();
+        }
+
         public IActionResult Privacy()
         {
             return View();

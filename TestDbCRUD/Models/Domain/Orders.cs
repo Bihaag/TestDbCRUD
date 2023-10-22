@@ -14,5 +14,6 @@ namespace TestDbCRUD.Models.Domain
         public DateTime ETA { get; set; }
         public string? PickupLocationID { get; set; }
         public string? DestinationID { get; set; }
+        public Boolean UserStatus { get; set; }
     }
 }
