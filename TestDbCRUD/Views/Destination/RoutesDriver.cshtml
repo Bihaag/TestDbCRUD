@@ -1,4 +1,10 @@
-﻿@model List<TestDbCRUD.Models.Domain.Orders>
+﻿@{
+    ViewData["Title"] = "Routes";
+    Layout = "_LayoutDriver";
+}
+
+
+@model List<TestDbCRUD.Models.Domain.Orders>
 
 @{
 }
@@ -27,13 +33,29 @@
                 <td>@order.Quantity</td>
                 <td>@order.PickupLocation</td>
                 <td>@order.Destination</td>
-               @*  <td>@order.DestinationID</td>
-                <td>@order.PickupLocationID</td> *@
+                @*  <td>@order.DestinationID</td>
+            <td>@order.PickupLocationID</td> *@
                 <td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
                 @* <td><a href="Maps/Destination">View Route</a></td> *@
                 <td><a href="Maps/Destination?pickupLocation=@order.PickupLocationID&destination=@order.DestinationID">View Route</a></td>
+                <td>
+                    <form method="post" action="@Url.Action("Status", "Orders")">
+                        <input type="hidden" name="id" value="@order.Id" />
+                        <button type="submit" class="btn btn-danger change-status-button" data-order-id="@order.Id">Change Status</button>
+                    </form>
+                </td>
+
             </tr>
-            
+
         }
     </tbody>
 </table>
+
+
+
+
+
+
+
+
+

@@ -23,7 +23,6 @@ namespace TestDbCRUD.Controllers
             return View(orders);
         }
 
-
         [HttpGet]
         public IActionResult Add()
         {
@@ -147,6 +146,28 @@ namespace TestDbCRUD.Controllers
         public IActionResult OrderCancelled()
         {
             return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Status(UpdateOrderViewModel model)
+        {
+
+            var order = await moveItDbContext.Orders.FindAsync(model.Id);
+            var status = model.UserStatus;
+
+            // Retrieve the corresponding RoleType entity based on the selected role name
+            var Selectedstatus = moveItDbContext.Orders.FirstOrDefault(r => r.UserStatus == status);
+
+            if (status == false)
+            {
+                order.UserStatus = true;
+
+                await moveItDbContext.SaveChangesAsync();
+
+                return RedirectToAction("IndexDriver","Home");
+            }
+
+            return RedirectToAction("Index");
         }
 
     }

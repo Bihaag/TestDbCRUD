@@ -9,7 +9,6 @@ using TestDbCRUD.Data;
 using TestDbCRUD.Models;
 using TestDbCRUD.Models.Domain;
 using System.Linq;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -110,6 +109,7 @@ namespace TestDbCRUD.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            ViewBag.ShowNavigationBar = false;
             return View();
         }
 

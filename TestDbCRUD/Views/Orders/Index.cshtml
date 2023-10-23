@@ -30,7 +30,7 @@
                 <td>@order.Destination</td>
                 <td>@order.OrderDate.ToString("dd-MM-yyyy")</td>
                 <td>@order.ETA</td>
-                <td><a href="Orders/View/@order.Id">View</a></td>
+                <td><a href="View/@order.Id">View</a></td>
                 <td>
                     <form method="post" action="@Url.Action("CancelOrder", "Orders")">
                         <input type="hidden" name="id" value="@order.Id" />

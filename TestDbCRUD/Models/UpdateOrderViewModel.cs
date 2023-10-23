@@ -12,5 +12,7 @@
         public DateTime OrderDate { get; set; }
         public DateTime ETA { get; set; }
 
+        public Boolean UserStatus { get; set; }
+
     }
 }

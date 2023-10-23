@@ -1,7 +1,8 @@
-﻿@model List<TestDbCRUD.Models.Domain.Orders>
-
-@{
+﻿@{
+    ViewData["Title"] = "Maps Page";
+    Layout = "_LayoutDriver";
 }
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,22 +14,9 @@
         .commutes {
             height: 500px;
         }
-
-        .backbutton{
-            position: absolute;
-            left:30px;
-            top:30px;
-        }
     </style>
 </head>
 <body>
-
-    <button class="backbutton" id="goBackButton">Go Back</button>
-    <script>
-        document.getElementById("goBackButton").addEventListener("click", function() {
-            history.back();
-        });
-    </script>
     <!-- Defined commutes SVGs -->
     <svg class="hide">
         <defs>
@@ -378,6 +366,7 @@
 
     <a class="a" id="changeCenter" href="#" target="_blank">VIEW A - B</a>
     <a class="c" id="hiddenTag1" target="_blank">A</a>
+
     <a class="b" id="hiddenTag2">
         *CLICK
         <svg aria-label="Directions icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24">

@@ -27,12 +27,25 @@ namespace TestDbCRUD.Controllers
         [HttpGet]
         public async Task<IActionResult> Maps()
         {
-            
+            ViewBag.ShowNavigationBar = false;
             return View();
         }
 
+        
+        [HttpGet]
+        public async Task<IActionResult> MapsDriver()
+        {
+           
+            return View();
+        }
 
-
+        [HttpGet]
+        public async Task<IActionResult> RoutesDriver()
+        {
+            
+            var orders = await moveItDbContext.Orders.ToListAsync();
+            return View(orders);
+        }
 
     }
 }
